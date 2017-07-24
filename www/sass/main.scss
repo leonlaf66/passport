@@ -1,0 +1,33 @@
+@import "common/base";
+@import "common/ui";
+@import "common/layout";
+@import "common/dialog";
+@import "common/header";
+@import "common/form";
+@import "common/footer";
+@import "app/all";
+body
+{
+    font-family:"PingFang SC","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Microsoft Yahei","微软雅黑",STheiti,"华文细黑",sans-serif;
+    background:#f5f5f6;
+}
+body, table{font-size:12px;}
+body.zh-cn, body.zh-cn table {
+    font-size:14px;
+}
+
+a {
+    color:#333;
+    &:hover {
+        color:#99bd2a;
+    }
+}
+
+.clear {
+    float:none;
+    clear:both;
+}
+
+.text-left {text-align:left;}
+.text-right {text-align:right;}
+.text-center {text-align:center;}

@@ -1,0 +1,20 @@
+<?php $this->context->layout = '@module/page/views/layouts/main2.phtml'?>
+
+<?php
+$t = \WS::lang('account');
+
+$this->title = $t('Have completed registration', [], true);
+?>
+
+<?php
+    $this->params['breadcrumbs'] = [
+        $t('Have completed registration', [], true)
+    ]
+?>
+
+<div class="container">
+    <p class="notice bg-success" style="line-height:24px;padding:15px;margin-bottom:25px;">
+        <span class="glyphicon glyphicon-ok-sign"></span><?php echo $t('I have completed the registration, Please:')?>
+    </p>
+    <a href="/login/" class="btn" id="btn-login-to-email"><?php echo $t('Log In')?></a>
+</div>

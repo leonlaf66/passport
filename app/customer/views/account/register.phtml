@@ -1,0 +1,45 @@
+<?php 
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+$t = \WS::lang('account');
+
+$this->title = $t('Customer Register', [], true);
+?>
+
+<?php echo \module\page\widgets\Nav::widget()?>
+
+<div class="register-box">
+    <h1>创建帐户</h1>
+    <a href="/login/" class="btn-login link-btn">已有帐户？直接登陆</a>
+
+    <?php $form = ActiveForm::begin(['id' => 'register-form'])?>
+        <div class="form-group">
+            <?php echo $form->field($formModel, 'username')->textInput([
+                'placeholder' => $formModel->getAttributeLabel('username')
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?php echo $form->field($formModel, 'email')->textInput([
+                'placeholder' => $formModel->getAttributeLabel('email')
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?php echo $form->field($formModel, 'password')->passwordInput([
+                'placeholder' => $formModel->getAttributeLabel('password')
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?php echo $form->field($formModel, 'confirm_password')->passwordInput([
+                'placeholder' => $formModel->getAttributeLabel('confirm_password')
+            ]) ?>
+        </div>
+        <div class="form-group mt15">
+            <?= $form->field($formModel, 'accept_agreed')->checkbox() ?>
+        </div>
+
+        <div style="text-align:center;">
+            <button type="submit" class="btn"><?php echo $t('Create Account')?></button>
+        </div>
+    <?php ActiveForm::end()?>
+</div>

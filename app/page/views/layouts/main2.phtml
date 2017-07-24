@@ -1,0 +1,22 @@
+<?php 
+    use yii\widgets\Block;
+    use yii\bootstrap\Nav;
+    use yii\bootstrap\NavBar;
+    use \module\page\widgets as PageWidget;
+?>
+
+<?php $this->beginContent('@module/page/views/layouts/base.phtml')?>
+
+<div id="main">
+    <?php echo \module\page\widgets\Nav::widget()?>
+    
+    <div class="container">
+        <?php foreach (Yii::$app->session->getAllFlashes() as $key => $message) { ?>
+            <div class="alert alert-<?=$key?>" role="alert"><?=$message?></div>
+        <?php } ?>
+    </div>
+
+    <?php echo $content;?>
+</div>
+
+<?php $this->endContent()?>

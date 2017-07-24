@@ -1,0 +1,82 @@
+#footer-before {
+    margin-top:45px;
+    background:#99bd2a;
+    color:#fff;
+    line-height:32px;
+    .container {
+        min-height:100px;
+        padding:35px 0;
+        background: url(/static/img/logo.png) no-repeat 0 30px;
+        padding-left: 140px;
+    }
+    .contacts,.about,.other {
+        font-size:15px;
+    }
+    .icon-circle {
+        background: url("/static/img/footer-before-icons.png") no-repeat -1px -2px;
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    .contacts {
+        .heading {
+            margin-bottom:8px;
+        }
+        .icon2 {
+            display:inline-block;
+            vertical-align:middle;
+            background: url('/static/img/footer-before-icons.png') no-repeat;
+            margin-right:8px;
+            width: 30px;
+            height: 20px;
+        }
+        .us-phone .icon2{
+            background-position: -1px -51px;
+        }
+        .cn-phone .icon2{
+            background-position: -1px -81px;
+        }
+        .email {
+            margin-top:8px;
+            .icon2{
+                background-position: -1px -134px;
+            }
+        }
+    }
+    .about {
+        .item {
+        }
+        .follow {
+            margin-top:5px;
+            .iconfont {font-size:32px;margin-right:14px;}
+        } 
+    }
+    .other {
+        .apps {
+            margin-top:10px;
+            .android, .ios {
+                display:inline-block;
+                white-space:nowrap;
+                background:url(/static/img/ercode.png) no-repeat;
+                background-size: 90px 90px;
+                background-size: 90px 90px;
+                display: inline-block;
+                width: 90px;
+                margin-right: 30px;
+                padding-top: 90px;
+                vertical-align: top;
+                text-align:center;
+            }
+        }
+    }
+}
+
+#footer {
+    border-top:solid 1px #fff;
+    background:#96a922;
+    color:#fff;
+    padding:15px 0;
+    text-align:center;
+}

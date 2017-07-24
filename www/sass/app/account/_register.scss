@@ -1,0 +1,23 @@
+.register-box {
+    position:relative;
+    width:372px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size:14px;
+    > h1 {
+        font-size:32px;
+    }
+    a.btn-login {
+        position:absolute;
+        top:20px;
+        right:0;
+    }
+}
+
+#register-form {
+    margin-top:20px;
+    #registerform-username {
+        border-top: 1px solid #e4e4e4;
+        border-radius: 3px 3px 0 0;
+    }
+}

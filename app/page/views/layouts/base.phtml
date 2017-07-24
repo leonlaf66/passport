@@ -1,0 +1,69 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\Block;
+
+/* @var $this \yii\web\View */
+/* @var $content string */
+
+module\page\assets\Asset::register($this);
+?>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="<?= WS::$app->charset ?>">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <link rel="stylesheet" type="text/css" href="<?php echo \WS::$app->params['iconfontUrl']?>">
+    
+    <meta id="csrf-token" content="<?php echo Yii::$app->request->csrfToken?>">
+    <?php $this->head() ?>
+    
+    <script>
+    var urlQuery = <?php echo json_encode(\WS::$app->request->get(null, []))?>;
+    </script>
+    <?php if (\Yii::$app->translationStatus):?>
+        <style>
+         t{border:dotted 1px red;}
+        </style>
+        <script>
+            $(function(){
+                $('body').delegate('t', 'contextmenu', function(event) {
+                    var $self = $(this),
+                        type = $self.data('type'),
+                        source = $self.data('source');
+
+                    if($transText = window.prompt(source)) {
+                        $.get('/cms/language/save/', {category: type, source: source, 'translation':$transText}, function(){
+                            $self.text($transText);
+                        });
+                    }
+                    
+                    return false;
+                });
+            });
+        </script>
+    <?php endif?>
+</head>
+<body class="unresponsive <?php echo WS::$app->controller->module->id?>-<?php echo WS::$app->controller->id?>-<?php echo WS::$app->controller->action->id?> <?php echo strtolower(WS::$app->language)?>">
+
+<?php $this->beginBody() ?>
+    <?php echo $content;?>
+<?php $this->endBody() ?>
+<!-- Start of LiveChat (www.livechatinc.com) code -->
+<script type="text/javascript">
+/*
+window.__lc = window.__lc || {};
+window.__lc.license = 7739171;
+(function() {
+  var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+  lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+})();
+*/
+</script>
+<!-- End of LiveChat code -->
+</body>
+</html>
+<?php $this->endPage() ?>

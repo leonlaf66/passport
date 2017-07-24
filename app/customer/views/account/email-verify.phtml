@@ -1,0 +1,85 @@
+<?php $this->context->layout = '@module/page/views/layouts/main2.phtml'?>
+
+<?php
+$t = \WS::lang('account');
+
+$this->title = $t('Email Verify', [], true);
+
+$this->params['breadcrumbs'] = [
+    $this->title
+];
+$_messages = [
+    'en-US'=>[
+        'Confirmation email has been sent to "<span id="email-address">{email}</span>", Please click the link in that email to active your account. If you have not received it within 10 mins:',
+        '1. Please check your spam filters and ensure the emails from our domain are not blocked.',
+        '2. You can also try to login with your email/password and click the Resend Email button under My Account'
+    ],
+    'zh-CN'=>[
+        '请您先登陆<span id="email-address">{email}</span>邮箱并激活, 如果无法激活或者没有收到邮件, 请尝试通过以下方法解决:',
+        '(1) 检查您的邮件信箱中的垃圾箱或广告箱, 邮件可能被误认为垃圾或广告邮件.',
+        '(2) 使用您的注册的Email和Password直接进行登陆, 网站将提示"您的用户尚未激活", 请点击"重发激活邮件", 网站将立即再次发送激活邮件.'
+    ]
+];
+$_langName = in_array(\Yii::$app->language, ['en-US', 'zh-CN']) ? \Yii::$app->language : 'en-US';
+$_messages = $_messages[$_langName];
+?>
+
+<div class="container">
+    <h3 style="color:#99bd2a"><?php echo \Yii::$app->request->get('from', '')==='login' 
+        ? $t("Your account hasn't been activated!", [], true) : 
+          $t('Congratulations! Your account has been created successfully!', [], true)?></h3>
+
+    <p class="notice" style="line-height:24px;">
+        <div style="margin-bottom:15px;"><?php echo str_replace('{email}', $account->email, $_messages[0])?></div>
+        <?php echo $_messages[1]?><br/>
+        <?php echo $_messages[2]?>
+    </p>
+    <?php if(\Yii::$app->request->get('from', '')==='login'):?>
+        <a href="#" class="btn" id="btn-send-email" target="_blank" style="margin-right:15px"><?php $t('Resend confirmation email')?></a>
+    <?php endif?>
+    <a href="#" class="btn" id="btn-login-to-email" target="_blank"><?php $t('Login your email')?></a>
+</div>
+
+<script>
+    $('#btn-login-to-email').click(function(){
+        var self = $(this),
+            emailHash={ 
+                'qq.com': 'http://mail.qq.com', 
+                'gmail.com': 'http://mail.google.com', 
+                'sina.com': 'http://mail.sina.com.cn', 
+                '163.com': 'http://mail.163.com', 
+                '126.com': 'http://mail.126.com', 
+                'yeah.net': 'http://www.yeah.net/', 
+                'sohu.com': 'http://mail.sohu.com/', 
+                'tom.com': 'http://mail.tom.com/', 
+                'sogou.com': 'http://mail.sogou.com/', 
+                '139.com': 'http://mail.10086.cn/', 
+                'hotmail.com': 'http://www.hotmail.com', 
+                'live.com': 'http://login.live.com/', 
+                'live.cn': 'http://login.live.cn/', 
+                'live.com.cn': 'http://login.live.com.cn', 
+                '189.com': 'http://webmail16.189.cn/webmail/', 
+                'yahoo.com.cn': 'http://mail.cn.yahoo.com/', 
+                'yahoo.cn': 'http://mail.cn.yahoo.com/', 
+                'eyou.com': 'http://www.eyou.com/', 
+                '21cn.com': 'http://mail.21cn.com/', 
+                '188.com': 'http://www.188.com/', 
+                'foxmail.coom': 'http://www.foxmail.com' 
+            },
+            host = $("#email-address").text().split('@')[1];
+
+        if(emailHash.hasOwnProperty(host)) {
+            var url = emailHash[host];
+            self.attr('href', url);
+        }
+    });
+$('#btn-send-email').click(function() {
+    var $self = $(this);
+    $self.attr('disabled', true);
+    $.get('/send-email/', {id: "<?php echo $account->id?>", token: "<?php echo $account->access_token?>"}, function(){
+        alert('It\'s sent!');
+        $self.attr('disabled', false);
+    });
+    return false;
+});
+</script>
