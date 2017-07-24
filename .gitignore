@@ -1,0 +1,4 @@
+/vendor
+/www/.sass-cache
+/www/assets
+/www/node_modules
