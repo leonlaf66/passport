@@ -8,6 +8,7 @@ return [
         '/forgot-password-sucess/' => 'customer/account/forgot-password-sucess',
         '/email-verify/' => 'customer/account/email-verify',
         '/send-email/' => 'customer/account/send-email',
-        '/email-confirm/'=>'customer/account/email-confirm'
+        '/email-confirm/'=> 'customer/account/email-confirm',
+        '/reset-password/' => 'customer/account/reset-password',
     ]
 ];
