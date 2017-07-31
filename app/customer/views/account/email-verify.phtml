@@ -1,33 +1,64 @@
 <?php $this->context->layout = '@module/page/views/layouts/main2.phtml'?>
 
 <?php
-$t = \WS::lang('account');
+$t = \WS::lang('account', true);
 
-$this->title = $t('Email Verify', [], true);
+$this->title = tt('Email Verify', '邮箱验证');
 
 $this->params['breadcrumbs'] = [
     $this->title
 ];
 $_messages = [
     'en-US'=>[
-        'Confirmation email has been sent to "<span id="email-address">{email}</span>", Please click the link in that email to active your account. If you have not received it within 10 mins:',
-        '1. Please check your spam filters and ensure the emails from our domain are not blocked.',
-        '2. You can also try to login with your email/password and click the Resend Email button under My Account'
+        '<div class="line"><b>Confirmation email has been sent to "<span id="email-address">{email}</span>", Please click the link in that email to active your account. If you have not received it within 10 mins:</b></div>',
+        '<div class="line">1. Please check your spam filters and ensure the emails from our domain are not blocked.</div>',
+        '<div class="line">2. You can also try to login with your email/password and click the Resend Email button under My Account</div>'
     ],
     'zh-CN'=>[
-        '请您先登陆<span id="email-address">{email}</span>邮箱并激活, 如果无法激活或者没有收到邮件, 请尝试通过以下方法解决:',
-        '(1) 检查您的邮件信箱中的垃圾箱或广告箱, 邮件可能被误认为垃圾或广告邮件.',
-        '(2) 使用您的注册的Email和Password直接进行登陆, 网站将提示"您的用户尚未激活", 请点击"重发激活邮件", 网站将立即再次发送激活邮件.'
+        '<div class="line"><b>请您先登陆<span id="email-address">{email}</span>邮箱并激活, 如果无法激活或者没有收到邮件, 请尝试通过以下方法解决:</b></div>',
+        '<div class="line">(1) 检查您的邮件信箱中的垃圾箱或广告箱, 邮件可能被误认为垃圾或广告邮件.</div>',
+        '<div class="line">(2) 使用您的注册的Email和Password直接进行登陆, 网站将提示"您的用户尚未激活", 请点击"重发激活邮件", 网站将立即再次发送激活邮件.</div>'
     ]
 ];
 $_langName = in_array(\Yii::$app->language, ['en-US', 'zh-CN']) ? \Yii::$app->language : 'en-US';
 $_messages = $_messages[$_langName];
+
+$accountNoActiveMessage = tt("Your account hasn't been activated!", '您的帐户尚未激活！');
+$accountActivedMessage = tt('Congratulations! Your account has been created successfully!', '恭喜您! 您的帐户已成功创建！');
 ?>
 
-<div class="container">
-    <h3 style="color:#99bd2a"><?php echo \Yii::$app->request->get('from', '')==='login' 
-        ? $t("Your account hasn't been activated!", [], true) : 
-          $t('Congratulations! Your account has been created successfully!', [], true)?></h3>
+<style type="text/css">
+.email-verify-container {
+    background: #fff;
+    border: solid 1px #e0e0e0;
+    padding: 20px;
+    width: 540px;
+    border-radius: 4px;
+}
+.email-verify-container > h3{
+    color:#99bd2a;margin-bottom:25px;font-size:20px;
+}
+#btn-login-to-email {
+    height: 48px;
+    line-height: 38px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+#btn-login-to-email:focus {
+    color:#fff;
+}
+#btn-send-email {
+    height: 48px;
+    line-height: 38px;
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+</style>
+
+<div class="container email-verify-container">
+    <h3><?php echo \Yii::$app->request->get('from', '')==='login' 
+        ? $accountNoActiveMessage : 
+          $accountActivedMessage?></h3>
 
     <p class="notice" style="line-height:24px;">
         <div style="margin-bottom:15px;"><?php echo str_replace('{email}', $account->email, $_messages[0])?></div>
@@ -35,9 +66,11 @@ $_messages = $_messages[$_langName];
         <?php echo $_messages[2]?>
     </p>
     <?php if(\Yii::$app->request->get('from', '')==='login'):?>
-        <a href="#" class="btn" id="btn-send-email" target="_blank" style="margin-right:15px"><?php $t('Resend confirmation email')?></a>
+        <a href="javascript:void(0)" class="btn" id="btn-send-email" target="_blank" style="margin-right:15px"><?php _tt('Resend confirmation email', '重新发送确认邮件')?></a>
+        <a href="javascript:void(0)" class="btn" id="btn-login-to-email" target="_blank" style="margin-top:15px"><?php _tt('Login your email', '登陆邮箱')?></a>
+    <?php else:?>
+        <a href="javascript:void(0)" class="btn" id="btn-login-to-email" target="_blank"><?php _tt('Login your email', '登陆邮箱')?></a>
     <?php endif?>
-    <a href="#" class="btn" id="btn-login-to-email" target="_blank"><?php $t('Login your email')?></a>
 </div>
 
 <script>

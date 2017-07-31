@@ -1,20 +1,42 @@
 <?php $this->context->layout = '@module/page/views/layouts/main2.phtml'?>
 
 <?php
-$t = \WS::lang('account');
-
-$this->title = $t('Have completed registration', [], true);
+$this->title = tt('Have completed registration', '已完成注册');
 ?>
 
 <?php
     $this->params['breadcrumbs'] = [
-        $t('Have completed registration', [], true)
+        $this->title
     ]
 ?>
 
-<div class="container">
+<style type="text/css">
+.email-confirmed-container {
+    width: 400px;
+    background: #fff;
+    padding: 15px;
+    border: solid 1px #e0e0e0;
+    border-radius: 4px;
+}
+#btn-login-to-email {
+    height: 48px;
+    line-height: 40px;
+    margin-bottom: 10px;
+}
+.email-confirmed-container .bg-success {
+    font-size: 24px;
+    color: #777;
+}
+.email-confirmed-container .bg-success .iconfont {
+    font-size: 28px;
+    color: #999;
+}
+</style>
+
+<div class="container email-confirmed-container">
     <p class="notice bg-success" style="line-height:24px;padding:15px;margin-bottom:25px;">
-        <span class="glyphicon glyphicon-ok-sign"></span><?php echo $t('I have completed the registration, Please:')?>
+        <span class="iconfont icon-ok-sign"></span>
+        <?php _tt('You have completed the registration, Please:', '您已经完成了注册，请：')?>
     </p>
-    <a href="/login/" class="btn" id="btn-login-to-email"><?php echo $t('Log In')?></a>
+    <a href="/login/" class="btn" id="btn-login-to-email"><?php echo _tt('Log In', '登陆')?></a>
 </div>

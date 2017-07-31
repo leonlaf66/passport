@@ -21,7 +21,7 @@ class ForgotPasswordForm extends \common\customer\forms\ForgotPasswordForm
     public function attributeLabels()
     {
         return [
-            'email'=>WS::t('account', 'Email Address')
+            'email'=>tt('Email Address', '邮箱地址')
         ];
     }
 

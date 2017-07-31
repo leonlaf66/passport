@@ -2,16 +2,14 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$t = \WS::lang('account');
-
-$this->title = $t('Customer Register', [], true);
+$this->title = tt('Create account', '创建账户');
 ?>
 
 <?php echo \module\page\widgets\Nav::widget()?>
 
 <div class="register-box">
-    <h1>创建帐户</h1>
-    <a href="/login/" class="btn-login link-btn">已有帐户？直接登陆</a>
+    <h1><?php _tt('Create account', '创建帐户')?></h1>
+    <a href="/login/" class="btn-login link-btn"><?php _tt('Login now!', '已有帐户？直接登陆')?></a>
 
     <?php $form = ActiveForm::begin(['id' => 'register-form'])?>
         <div class="form-group">
@@ -39,7 +37,7 @@ $this->title = $t('Customer Register', [], true);
         </div>
 
         <div style="text-align:center;">
-            <button type="submit" class="btn"><?php echo $t('Create Account')?></button>
+            <button type="submit" class="btn"><?php _tt('Create Account', '创建帐户')?></button>
         </div>
     <?php ActiveForm::end()?>
 </div>

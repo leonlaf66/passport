@@ -4,16 +4,14 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$t = \WS::lang('account');
-
-$this->title = $t('Customer Login', [], true);
+$this->title = tt('Customer Login', '登陆');
 $this->params['breadcrumbs'] = [$this->title]
 ?>
 
 <div class="login-container">
     <div class="login-box">
-        <h1>登陆</h1>
-        <a href="/register/" class="btn-register link-btn">没有帐号，立即注册</a>
+        <h1><?php _tt('Login', '登陆')?></h1>
+        <a href="/register/" class="btn-register link-btn"><?php _tt('Register now!', '没有帐号? 立即注册')?></a>
 
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
@@ -33,15 +31,15 @@ $this->params['breadcrumbs'] = [$this->title]
             </div>
             <div class="form-group mt20">
                 <?= $form->field($formModel, 'rememberMe')->checkbox() ?>
-                <a href="/forgot-password/" class="btn-forgot-pwd link-btn">忘记密码?</a>
+                <a href="/forgot-password/" class="btn-forgot-pwd link-btn"><?php _tt('Forget password?', '忘记密码?')?></a>
             </div>
             <div class="form-group mt20">
-                <button id="btn-login" class="basisyle btn" type="submit"><?php echo $t('Login')?></button>
+                <button id="btn-login" class="basisyle btn" type="submit"><?php _tt('Login', '登陆')?></button>
             </div>
         <?php ActiveForm::end()?>
 
         <div class="social-login">
-            <h1><span>社交帐号直接登陆</span></h1>
+            <h1><span><?php _tt('Wechat login', '社交帐号直接登陆')?></span></h1>
             <a id="btn-wechat" class="link-icon-btn" href="#"><i class="iconfont icon-wechat"></i></a>
         </div>
     </div>
