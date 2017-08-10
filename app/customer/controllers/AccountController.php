@@ -38,9 +38,11 @@ class AccountController extends \yii\web\Controller
             $loginForm->load(WS::$app->request->post());
             if($account = $loginForm->login()) {
                 if(! $account->getIsConfirmed()) {
+                    WS::$app->user->logout();
                     return $this->redirect(['/email-verify', 'id'=>$account->id, 'token'=>$account->access_token, 'from'=>'login']);
                 }
                 if($callbackUrl = WS::$app->request->get('callback')) {
+                    $callbackUrl = urldecode($callbackUrl);
                     return $this->redirect($callbackUrl);
                 }
                 return $this->redirect(WS::$app->memberUrl);
