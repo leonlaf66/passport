@@ -107,15 +107,27 @@ class AccountController extends \yii\web\Controller
     {
         $account = \common\customer\Account::findOne($id);
         if(! $account) {
-            return $this->goHome();
+            if (isset($_GET['from']) && $_GET['from'] !== 'app') {
+                return $this->goHome();
+            } else {
+                echo tt('error!', '不存在的帐号!');exit;
+            }
         }
         
         if($account->getIsConfirmed()) {
-            //return $this->goHome();
+            if (isset($_GET['from']) && $_GET['from'] !== 'app') {
+                return $this->goHome();
+            } else {
+                echo tt('error!', '重复的帐户确认!');exit;
+            }
         }
 
         if($account->access_token !== $token) {
-            return $this->goHome();
+            if (isset($_GET['from']) && $_GET['from'] !== 'app') {
+                return $this->goHome();
+            } else {
+                echo tt('error!', '授权错误');exit;
+            }
         }
 
         $account->confirmed_at = date('Y-m-d H:i:s', time());
