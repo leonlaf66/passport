@@ -111,7 +111,7 @@ class AccountController extends \yii\web\Controller
         }
         
         if($account->getIsConfirmed()) {
-            return $this->goHome();
+            //return $this->goHome();
         }
 
         if($account->access_token !== $token) {
