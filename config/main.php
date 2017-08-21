@@ -72,6 +72,9 @@ return \yii\helpers\ArrayHelper::merge(get_fdn_etc(), [
                 'app.js'=>'js/app.js'
             ]
         ],
+        'errorHandler' => [
+            'errorAction'=>'page/index/error'
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
