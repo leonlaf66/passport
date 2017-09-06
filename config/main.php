@@ -1,7 +1,5 @@
 <?php
-$localConfig = include(__DIR__.'/local.php');
-
-return \yii\helpers\ArrayHelper::merge(get_fdn_etc(), [
+return \yii\helpers\ArrayHelper::merge(get_fdn_etc('web'), [
     'id' => 'usleju-passport',
     'basePath' => dirname(__DIR__),
     'layout'=>'@module/page/views/layouts/main.phtml',
@@ -97,4 +95,4 @@ return \yii\helpers\ArrayHelper::merge(get_fdn_etc(), [
         '@bower'=>APP_ROOT.'/vendor/bower',
         'module'=>APP_ROOT.'/app'
     ]
-], $localConfig);
+], include(__DIR__.'/local.php'));

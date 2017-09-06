@@ -1,5 +1,5 @@
 <?php
-class App extends \common\web\SiteApp
+class App extends \common\supports\SiteApp
 {
     public $memberUrl = '';
 }
