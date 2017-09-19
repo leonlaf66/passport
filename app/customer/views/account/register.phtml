@@ -13,11 +13,6 @@ $this->title = tt('Create account', '创建账户');
 
     <?php $form = ActiveForm::begin(['id' => 'register-form'])?>
         <div class="form-group">
-            <?php echo $form->field($formModel, 'username')->textInput([
-                'placeholder' => $formModel->getAttributeLabel('username')
-            ]) ?>
-        </div>
-        <div class="form-group">
             <?php echo $form->field($formModel, 'email')->textInput([
                 'placeholder' => $formModel->getAttributeLabel('email')
             ]) ?>

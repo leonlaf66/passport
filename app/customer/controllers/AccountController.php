@@ -54,6 +54,46 @@ class AccountController extends \yii\web\Controller
         ]);
     }
 
+    public function actionWechatLogin($code = null)
+    {
+        if (! WS::$app->user->isGuest || ! $code) {
+            //return $this->goHome();
+        }
+
+        // 初始化sdk
+        $options = WS::$app->params['wechat'];
+        $wxadv = new \common\wechat\WXAdv($options['appId'], $options['appSecret']);
+
+        if ($openId = $wxadv->get_open_id($code)) {
+            $account = \common\customer\Account::findByOpenId($openId);
+
+            if (! $account) { // 自动注册
+                $userInfo = $wxadv->get_user_info($openId);
+
+                $account = new \common\customer\Account();
+                $account->auth_key = WS::$app->getSecurity()->generateRandomString();
+                $account->access_token = WS::$app->security->generateRandomString();
+                $account->created_at = date('Y-m-d H:i:s', time());
+                $account->updated_at = $account->created_at;
+                $account->registration_ip = WS::$app->request->getUserIP();
+
+                if(! $account->save()) {
+                    // 自动用户pfofile
+                    $userProfile = \common\customer\Profile();
+                    $userProfile->user_id = $account->id;
+                    $userProfile->name = $userInfo['nickname'];
+                    $userProfile->where_from = $userInfo['country'] === '中国' ? 'cn' : 'us';
+                    $userProfile->save();
+
+                    return false;
+                }
+            }
+            WS::$app->user->login($account, 3600*24*30);
+        } else {
+             $this->error('授权出错,请重新授权!');
+        }
+    }
+
     public function actionCheckLogin()
     {
         $status = ! WS::$app->user->isGuest;

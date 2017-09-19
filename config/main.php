@@ -95,5 +95,11 @@ return \yii\helpers\ArrayHelper::merge(get_fdn_etc('web'), [
     'aliases'=>[
         '@bower'=>APP_ROOT.'/vendor/bower',
         'module'=>APP_ROOT.'/app'
+    ],
+    'params' => [
+        'wechat' => [
+            'appId' => '',
+            'appSecret' => ''
+        ]
     ]
 ], include(__DIR__.'/local.php'));

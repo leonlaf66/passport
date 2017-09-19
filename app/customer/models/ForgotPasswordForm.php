@@ -21,7 +21,7 @@ class ForgotPasswordForm extends \common\customer\forms\ForgotPasswordForm
 
     public function validateAccountId($attribute, $params)
     {
-        if(! Account::find()->where('username=:id or email=:id or phone_number=:id', [':id' => $this->$attribute])->exists()) {
+        if(! Account::find()->where('`email=:id or phone_number=:id', [':id' => $this->$attribute])->exists()) {
             $this->addError($attribute, tt('The account not exist!', '不存在的帐号!'));
             return false;
         }
