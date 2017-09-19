@@ -54,7 +54,7 @@ class AccountController extends \yii\web\Controller
         ]);
     }
 
-    public function actionWechatLogin($code = null)
+    public function actionWechatLogin($code)
     {
         if (! WS::$app->user->isGuest || ! $code) {
             //return $this->goHome();
@@ -68,30 +68,40 @@ class AccountController extends \yii\web\Controller
             $account = \common\customer\Account::findByOpenId($openId);
 
             if (! $account) { // 自动注册
-                $userInfo = $wxadv->get_user_info($openId);
-
-                $account = new \common\customer\Account();
-                $account->auth_key = WS::$app->getSecurity()->generateRandomString();
-                $account->access_token = WS::$app->security->generateRandomString();
-                $account->created_at = date('Y-m-d H:i:s', time());
-                $account->updated_at = $account->created_at;
-                $account->registration_ip = WS::$app->request->getUserIP();
-
-                if(! $account->save()) {
-                    // 自动用户pfofile
-                    $userProfile = \common\customer\Profile();
-                    $userProfile->user_id = $account->id;
-                    $userProfile->name = $userInfo['nickname'];
-                    $userProfile->where_from = $userInfo['country'] === '中国' ? 'cn' : 'us';
-                    $userProfile->save();
-
-                    return false;
-                }
+                $account = $this->doWechatRegister($openId, $wxadv);
             }
+
             WS::$app->user->login($account, 3600*24*30);
         } else {
-             $this->error('授权出错,请重新授权!');
+             return $this->error('授权出错,请重新授权!');
         }
+
+        return $this->redirect(WS::$app->memberUrl);
+    }
+
+    public function doWechatRegister($openId, $wxadv)
+    {
+        $userInfo = $wxadv->get_user_info($openId);
+
+        $account = new \common\customer\Account();
+        $account->open_id = $openId;
+        $account->auth_key = WS::$app->getSecurity()->generateRandomString();
+        $account->access_token = WS::$app->security->generateRandomString();
+        $account->created_at = date('Y-m-d H:i:s', time());
+        $account->updated_at = $account->created_at;
+        $account->confirmed_at = $account->created_at;
+        $account->registration_ip = WS::$app->request->getUserIP();
+
+        if($account->save()) {
+            // 自动用户pfofile
+            $userProfile = new \common\customer\Profile();
+            $userProfile->user_id = $account->id;
+            $userProfile->name = $userInfo['nickname'];
+            $userProfile->where_from = $userInfo['country'] === '中国' ? 'cn' : 'us';
+            $userProfile->save();
+        }
+
+        return $account;
     }
 
     public function actionCheckLogin()
