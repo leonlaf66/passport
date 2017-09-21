@@ -11,5 +11,6 @@ return [
         '/send-email/' => 'customer/account/send-email',
         '/email-confirm/'=> 'customer/account/email-confirm',
         '/reset-password/' => 'customer/account/reset-password',
+        '/bind-email-address/' => 'customer/account/bind-email-address',
     ]
 ];

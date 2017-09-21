@@ -254,6 +254,17 @@ class AccountController extends \yii\web\Controller
         ]);
     }
 
+    public function actionBindEmailAddress($token, $uid, $email)
+    {
+        if (md5('USLEJU-'.$uid.'-'.$email) !== $token) {
+            echo 'error!';
+            exit;
+        }
+
+        WS::$app->db->createCommand()->update('user', ['email' => $email], 'id=:id', [':id' => $uid])->execute();
+        return $this->goHome();
+    }
+
     public function actionLogout()
     {
         WS::$app->user->logout();
