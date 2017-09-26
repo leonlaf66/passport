@@ -5,5 +5,5 @@ use module\core as Core;
 
 class Module extends Core\Module
 {
-	public $layout = 'main';
+	public $layout = 'main2';
 }

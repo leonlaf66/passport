@@ -27,8 +27,13 @@ $this->title = tt('Create account', '创建账户');
                 'placeholder' => $formModel->getAttributeLabel('confirm_password')
             ]) ?>
         </div>
+
         <div class="form-group mt15">
-            <?= $form->field($formModel, 'accept_agreed')->checkbox() ?>
+            <div class="form-group field-registerform-accept_agreed has-success">
+            <label>
+                <input type="checkbox" id="registerform-accept_agreed" name="RegisterForm[accept_agreed]" value="1" aria-invalid="false""><span style="margin-left:5px"><?php _tt('Accept ', '接受')?></span>
+            </label>
+            <a class="link-btn" href="/protocol/" target="_blank"><?php _tt('USLEJU policy', '米乐居协议条款')?></a>
         </div>
 
         <div style="text-align:center;">
@@ -36,3 +41,11 @@ $this->title = tt('Create account', '创建账户');
         </div>
     <?php ActiveForm::end()?>
 </div>
+
+<?php
+$errors = $formModel->getErrors();
+if (isset($errors['accept_agreed'])):?>
+    <script type="text/javascript">
+        window.alert(<?php echo json_encode($errors['accept_agreed'][0])?>);
+    </script>
+<?php endif?>

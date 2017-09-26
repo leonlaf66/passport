@@ -20,4 +20,9 @@ class IndexController extends Controller
             ],
         ];
     }
+
+    public function actionProtocol()
+    {
+        return $this->render('protocol');
+    }
 }
