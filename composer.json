@@ -61,7 +61,8 @@
             "./../fdn/helpers.php"
         ],
         "psr-4": {
-            "common\\": "./../fdn"
+            "common\\": "./../fdn",
+            "models\\": "./../fdn/_models"
         }
     }
 }
