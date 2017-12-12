@@ -268,6 +268,10 @@ class AccountController extends \yii\web\Controller
     public function actionLogout()
     {
         WS::$app->user->logout();
+        if($callbackUrl = WS::$app->request->get('callback')) {
+            $callbackUrl = urldecode($callbackUrl);
+            return $this->redirect($callbackUrl);
+        }
 
         return $this->goHome();
     }
