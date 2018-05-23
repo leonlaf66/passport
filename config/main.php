@@ -66,8 +66,8 @@ return \yii\helpers\ArrayHelper::merge(get_fdn_etc('web'), [
                 'bootstrap.css'=>'http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css',
                 'admin.css'=>'css/styles.css',
                 /*js*/
-                'jquery.js'=>'http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js',
-                'bootstrap.js'=>'http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js',
+                'jquery.js'=>'https://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js',
+                'bootstrap.js'=>'https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js',
                 'app.js'=>'js/app.js'
             ]
         ],
