@@ -66,7 +66,6 @@ class AccountController extends \yii\web\Controller
 
         if ($openId = $wxadv->get_open_id($code)) {
             $account = \common\customer\Account::findByOpenId($openId);
-            var_dump($account);exit;
 
             if (! $account) { // 自动注册
                 $account = $this->doWechatRegister($openId, $wxadv);
