@@ -55,7 +55,7 @@ $('#btn-wechat').click(function () {
       id:"login_container", 
       appid: "<?php echo $app->params['wechat']['appId']?>",
       scope: "snsapi_login",
-      redirect_uri: "https://wechat.usleju.com/wechat-login/",
+      redirect_uri: "https://wechat.usleju.com/wechat-login/?callback=<?php echo urlencode($callbackUrl)?>",
       state: "<?php echo $app->request->csrfToken?>",
       style: "black",
       // href: "" /*样式定制*/

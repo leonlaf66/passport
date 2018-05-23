@@ -51,6 +51,7 @@ class AccountController extends \yii\web\Controller
 
         return $this->render('login', [
             'formModel' => $loginForm,
+            'callbackUrl' => WS::$app->request->get('callback')
         ]);
     }
 
@@ -74,6 +75,13 @@ class AccountController extends \yii\web\Controller
             WS::$app->user->login($account, 3600*24*30);
         } else {
              return $this->error('授权出错,请重新授权!');
+        }
+
+        if($callbackUrl = WS::$app->request->get('callback')) {
+            if (!empty($callbackUrl)) {
+                $callbackUrl = urldecode($callbackUrl);
+                return $this->redirect($callbackUrl);
+            }
         }
 
         return $this->redirect(WS::$app->memberUrl);
