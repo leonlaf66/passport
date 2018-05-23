@@ -54,7 +54,7 @@ class AccountController extends \yii\web\Controller
         ]);
     }
 
-    public function actionWechatLogin($code)
+    public function actionWechatLogin($code = null)
     {
         if (! WS::$app->user->isGuest || ! $code) {
             return $this->goHome();
