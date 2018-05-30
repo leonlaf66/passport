@@ -30,7 +30,7 @@ class AccountController extends \yii\web\Controller
     public function actionLogin()
     {
         if (! WS::$app->user->isGuest) {
-            return $this->goHome();
+            //return $this->goHome();
         }
 
         $loginForm = new LoginForm();
